@@ -5,6 +5,12 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent {
   title = 'YiannaProject-FrontEnd';
+
+  //onButtonClick(){
+  //  console.log("Clicked");
+  //}
+
 }

@@ -1,7 +1,12 @@
 .content {
   padding: 16px;
+  background-color: yellow;
 }
 
-.content > mat-card {
-  width: 300px;
+.card{
+  background-color: pink;
 }
+
+//.content > mat-card {
+//  width: 300px;
+//}

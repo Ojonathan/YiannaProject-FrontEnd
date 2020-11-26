@@ -1,0 +1,11 @@
+<div class="content">
+  <mat-selection-list #eventType [multiple]="false">
+    <mat-list-option *ngFor="let item of types" [value]="item.type">
+      {{item.type}}
+    </mat-list-option>
+  </mat-selection-list>
+
+  <p>
+    Option selected: {{eventType.selectedOptions.selected[0]?.value}}
+  </p>
+</div>

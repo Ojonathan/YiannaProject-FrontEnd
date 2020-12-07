@@ -1,3 +1,15 @@
-.content {
-  padding: 16px;
+.event-types{
+  margin: 7px;
+  border: 1px solid rgba(0,0,0,.2);
+}
+
+.event-types-label{
+  padding: 16px 8px 8px 16px;
+  color: rgba(0,0,0,.54);
+}
+
+mat-selection-list{
+  padding: 0px;
+  margin-top: 8px;
+  background: #f5f5f5;
 }

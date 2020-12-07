@@ -3,4 +3,5 @@ export interface IEvent {
   name: string;
   description: string;
   carAvailable: boolean;
+  author: string;
 }

@@ -1,3 +1,10 @@
-<app-nav-bar></app-nav-bar>
-<router-outlet></router-outlet>
+<div class="no-v-scroll">
+  <div class="navbar">
+    <app-nav-bar></app-nav-bar>
+  </div>
+  <div class="content" style="overflow-y: auto;">
+    <router-outlet></router-outlet>
+    <!--<app-footer></app-footer>-->
+  </div>
+</div>
 <!--FOOTER-->

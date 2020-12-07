@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Respond to this Event</h2>
+<mat-dialog-content fxLayout="column" [formGroup]="form" novalidate>
+  <mat-form-field>
+    <mat-label>Message</mat-label>
+    <textarea matInput #messageToSend placeholder="Ex. I love your post" formControlName="message"
+      style="min-height: 150px; max-height: 200px;"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button (click)="close()">Cancel</button>
+  <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="respondEvent(messageToSend.value)">Send Message</button>
+</mat-dialog-actions>

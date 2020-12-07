@@ -1,0 +1,19 @@
+.no-v-scroll {
+  height: 100%;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.content{
+  width: 100%;
+  height: 100%;
+  //background: aqua;
+}
+
+.navbar{
+//height: 64px;
+position: sticky;
+//z-index: 100;
+//width: 100%  !important;
+}

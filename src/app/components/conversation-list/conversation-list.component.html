@@ -1,0 +1,12 @@
+<div class="conversation-label">
+  Conversations
+</div>
+  <mat-selection-list #eventType [multiple]="false">
+    <div *ngFor="let item of conversations">
+    <mat-list-option [routerLink]="['/chat/conversation', item.idConversation]" routerLinkActive="router-link-active" [value]="item.idConversation">
+      {{item.idConversation}}
+    </mat-list-option>
+  </div>
+  </mat-selection-list>
+
+  <!--<p> Option selected: {{eventType.selectedOptions.selected[0]?.value}} </p>-->

@@ -1,1 +1,28 @@
-<p>chat works!</p>
+  <div class="chat-content" fxLayout="row" fxLayout.lt-sm="column">
+  <mat-card class="mat-elevation-z4">
+    <div fxFlex="300px" class="conversation-list">
+      <app-conversation-list></app-conversation-list>
+    </div>
+    <div fxFlex class="conversation-messages">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-card>
+</div>
+
+<!--
+<mat-card-title style="text-align:center;">Chat</mat-card-title>
+  <mat-card-content>
+    <input matInput type="text" placeholder="message" #messageToSend />
+    <button mat-raised-button color="primary" class="send-button" (click)="onSendMessage(messageToSend.value)">
+      Send Message
+    </button>
+  </mat-card-content>
+</mat-card>
+
+<h2>Received messages</h2>
+<ol>
+  <li *ngFor="let message of data">
+    Message received from: {{message.senderName}} -- {{message.content}}
+  </li>
+</ol>
+-->

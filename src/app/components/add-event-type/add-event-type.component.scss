@@ -1,0 +1,20 @@
+
+mat-dialog-content {
+  //background-color: yellowgreen;
+  margin: 0;
+  padding: 0;
+  width: 400px;
+  min-width: 300px;
+}
+
+mat-form-field {
+  width: 100%;
+  display: block;
+  //margin: auto;
+  //background-color: aqua;
+}
+
+mat-dialog-actions {
+  //background-color: papayawhip;
+  justify-content: flex-end;
+}

@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Add new event type</h2>
+<mat-dialog-content fxLayout="column" [formGroup]="form" novalidate>
+  <mat-form-field>
+    <mat-label>Name of  event type</mat-label>
+    <input matInput placeholder="Ex. Music, Science, Art" formControlName="type" required>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button (click)="close()">Cancel</button>
+  <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="publishEventType()">Publish Event Type</button>
+</mat-dialog-actions>

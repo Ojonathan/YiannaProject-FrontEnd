@@ -1,0 +1,14 @@
+<h2>Received messages</h2>
+<ol>
+  <li *ngFor="let message of messages">
+    Message received from: {{message.senderName}} -- to -- {{message.recipientName}} ----{{message.content}}
+  </li>
+</ol>
+
+<mat-form-field>
+  <mat-label>White a message</mat-label>
+  <input autocomplete="off" matInput type="text" placeholder="message" #messageToSend required/>
+</mat-form-field>
+<button mat-raised-button color="primary" class="send-button" (click)="onSendMessage(messageToSend.value)">
+  Send Message
+</button>

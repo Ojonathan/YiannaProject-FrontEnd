@@ -14,10 +14,25 @@ export class EventTypesListComponent implements OnInit {
   constructor(private _eventTypeService: EventTypeService) { }
 
   ngOnInit(): void {
-    this._eventTypeService.getAllEventTypes().subscribe(
-      resp => this.types = resp,
-      error => console.log('something wrong occurred: ' + error)
-    );
+    this.initEventTypeAddedSubscription();
+
+    //this._eventTypeService.getAllEventTypes().subscribe(
+    //  resp => this.types = resp,
+    //  error => console.log('something wrong occurred: ' + error)
+    //);
   }
+
+  public initEventTypeAddedSubscription() {
+    this._eventTypeService.eventTypeAdded.subscribe(
+      (v: boolean) => {
+      if(v) {
+        this._eventTypeService.getAllEventTypes().subscribe(
+          resp => this.types = resp,
+          error => console.log('something wrong occurred: ' + error)
+        );
+        }
+      });
+    }
+
 
 }

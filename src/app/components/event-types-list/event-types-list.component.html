@@ -1,11 +1,21 @@
-<div class="content">
-  <mat-selection-list #eventType [multiple]="false">
-    <mat-list-option *ngFor="let item of types" [value]="item.type">
-      {{item.type}}
+<!--<div class="content">-->
+<div class="event-types">
+  <div class="event-types-label">
+    Event types
+  </div>
+  <mat-selection-list class="content" #eventType [multiple]="false">
+    <mat-list-option [routerLink]="['/events']" routerLinkActive="router-link-active">
+      All
     </mat-list-option>
-  </mat-selection-list>
 
-  <p>
-    Option selected: {{eventType.selectedOptions.selected[0]?.value}}
-  </p>
+    <div *ngFor="let item of types">
+      <mat-list-option [routerLink]="['../events', item.idType]" routerLinkActive="router-link-active"
+        [value]="item.type">
+        {{item.type}}
+      </mat-list-option>
+    </div>
+  </mat-selection-list>
 </div>
+
+<!--<p> Option selected: {{eventType.selectedOptions.selected[0]?.value}} </p>-->
+<!--</div>-->

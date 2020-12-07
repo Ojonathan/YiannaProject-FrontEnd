@@ -1,4 +1,8 @@
-<div fxLayout="row" fxLayout.xs="column">
-  <app-event-types-list class="flex-item-left"></app-event-types-list>
-  <router-outlet class="flex-item-right"></router-outlet>
+<div fxLayout="row" fxLayout.lt-sm="column">
+  <div class="event_types" fxFlex.lg="20%" fxFlex.md="20%" fxFlex.sm="30%">
+    <app-event-types-list></app-event-types-list>
+  </div>
+  <div class="events" fxFlex>
+    <router-outlet></router-outlet>
+  </div>
 </div>

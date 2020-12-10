@@ -1,0 +1,77 @@
+<div class="signup-page">
+<div fxLayout="column" fxLayoutAlign="start center" fxFlexFill>
+  <mat-card class="mat-elevation-z12">
+    <mat-card-title style="text-align:center;">Sign Up</mat-card-title>
+        <mat-card-content>
+          <form [formGroup]="form" (ngSubmit)="signup(form.value)" novalidate fxLayout="column" fxLayoutAlign="center start">
+            <mat-form-field>
+              <input
+                formControlName="username"
+                matInput
+                placeholder="User Name"
+                required
+                name="">
+              <mat-icon matSuffix>perm_identity</mat-icon>
+              <mat-error *ngIf="f.username.invalid">
+                Username is required
+              </mat-error>
+
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                formControlName="email"
+                matInput
+                placeholder="Email"
+                required
+                name="">
+                <mat-error *ngIf="f.email.invalid">Email is required</mat-error>
+              <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                formControlName="password"
+                matInput
+                placeholder="Password"
+                type="password"
+                required
+                minlength="6"
+                name="">
+                <mat-error
+                  *ngIf="f.password.errors && f.password.errors.required">
+                  Password is required
+                </mat-error>
+                <mat-error
+                  *ngIf="f.password.errors && f.password.errors.minlength">
+                  Password must be of length 6
+                </mat-error>
+              <mat-icon matSuffix>lock</mat-icon>
+
+            </mat-form-field>
+            <!--<mat-form-field>
+                <input
+                matInput
+                placeholder="Password"
+                type="password"
+                required
+                minlength="6"
+                name="repassword"
+                ngModel
+                #repassword="ngModel">
+                <mat-error
+                  *ngIf="repassword.errors && repassword.errors.required">
+                  Re-Enter Password is required
+                </mat-error>
+              <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>-->
+            <button
+              mat-raised-button
+              color="primary"
+              class="signup-button"
+              [disabled]="form.invalid">
+              Sign Up
+            </button>
+          </form>
+        </mat-card-content>
+  </mat-card>
+</div>
+</div>

@@ -25,6 +25,8 @@ import { RespondEventComponent } from './components/respond-event/respond-event.
 import { ConversationListComponent } from './components/conversation-list/conversation-list.component';
 import { ConversationMessagesComponent } from './components/conversation-messages/conversation-messages.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { FooterComponent } from './components/footer/footer.component';
     RespondEventComponent,
     ConversationListComponent,
     ConversationMessagesComponent,
-    FooterComponent
+    FooterComponent,
+    ProfileComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

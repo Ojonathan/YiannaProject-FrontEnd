@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { IEvent } from 'src/app/domain/ievent';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { EventService } from 'src/app/services/event.service';
 import { RespondEventComponent } from '../respond-event/respond-event.component';
 
@@ -16,6 +17,7 @@ export class EventsListComponent implements OnInit {
   data :IEvent[] = [];
 
   constructor(private _eventService: EventService,
+    private _authService: AuthenticationService,
     private _router : ActivatedRoute,
     private dialog: MatDialog) { }
 
@@ -83,5 +85,9 @@ export class EventsListComponent implements OnInit {
       };
 
       this.dialog.open(RespondEventComponent, dialogConfig);
+    }
+
+    isLoggedIn(){
+      return this._authService.isLoggedIn();
     }
 }

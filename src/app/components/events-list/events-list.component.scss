@@ -1,3 +1,16 @@
 .card{
   margin: 7px;
 }
+
+mat-card-actions{
+  margin: 0px;
+}
+
+mat-card{
+  padding-bottom: 0px;
+  //z-index: -1 !important;//shadow
+}
+
+.noReplyLabel{
+  color : rgba(153, 153, 153, 0.54)
+}

@@ -4,11 +4,8 @@ import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 
 import { environment } from 'src/environments/environment';
-import { AuthenticationService } from './authentication.service';
 import { StompSubscription } from '@stomp/stompjs';
 import { BehaviorSubject } from 'rxjs';
-import { INotification } from '../domain/inotification';
-import { isNull } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
   providedIn: 'root'

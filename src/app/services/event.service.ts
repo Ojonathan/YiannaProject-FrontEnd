@@ -16,10 +16,10 @@ export class EventService {
   public getAllEvents():Observable<IEvent[]>{
     const URL: string = environment.url_base + '/events';
     return this._http.get<IEvent[]>(URL);
-   }
+  }
 
   public addEvent(username: string, e: IEvent): Observable<any> {
-    const URL: string = environment.url_base + '/events/' + username;
+    const URL: string = environment.url_base + `/events/${username}`;
     return this._http.post(URL, e, {responseType: 'text'});
   }
 
@@ -29,7 +29,7 @@ export class EventService {
   }
 
   public getEventAuthor(idEvent:number): Observable<string>{
-    const URL: string = environment.url_base + '/events/' + idEvent + '/author';
+    const URL: string = environment.url_base + `/events/${idEvent}/author`;
     return this._http.get(URL, {responseType: 'text'});
   }
 }

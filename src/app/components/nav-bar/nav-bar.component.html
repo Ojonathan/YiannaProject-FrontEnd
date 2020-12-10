@@ -30,8 +30,10 @@
   </button>
 
   <button mat-button *ngIf=!isLoggedIn() [routerLink]="['/login']" [queryParams]="{  'returnUrl' : '/' }">
-    <mat-icon>person</mat-icon>
-    <span class="textPadding" fxHide.lt-md="true">Login</span>
+    <span>Login</span>
+  </button>
+  <button mat-button *ngIf=!isLoggedIn() [routerLink]="['/signup']" [queryParams]="{  'returnUrl' : '/login' }">
+    <span>Signup</span>
   </button>
   <button mat-button *ngIf=isLoggedIn() (click)="logout()" id="logout">
     <mat-icon>login</mat-icon>

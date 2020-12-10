@@ -6,6 +6,8 @@ import { EventsListComponent } from './components/events-list/events-list.compon
 import { EventsComponent } from './components/events/events.component';
 import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'events', pathMatch: 'full' },
@@ -20,6 +22,8 @@ const routes: Routes = [
     {path: 'conversation/:idConversation', component: ConversationMessagesComponent}
   ]},
   { path: 'login', component: LoginComponent},
+  { path: 'signup', component: SignupComponent},
+  { path: 'profile', component: ProfileComponent},
   { path: '**', component: NotFoundComponent}
 ];
 

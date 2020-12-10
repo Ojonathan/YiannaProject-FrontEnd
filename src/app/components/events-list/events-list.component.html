@@ -1,6 +1,6 @@
 <div fxLayout="row wrap" fxLayoutGap="grid">
   <div fxFlex="33%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let item of data">
-    <mat-card class="mat-elevation-z3 card">
+    <mat-card class="mat-elevation-z2 card">
       <!--<mat-card-header>
         <mat-card-title>{{item.name}}</mat-card-title>
         <mat-card-subtitle>Published by {{item.author}}</mat-card-subtitle>
@@ -19,11 +19,14 @@
 
       <mat-divider></mat-divider>
 
+      <div fxLayout="column" fxLayoutAlign="center center">
       <mat-card-actions>
         <!-- open dialog-->
-        <button mat-button (click)="openRespondEventDialog(item.idEvent,item.author)" > Repondre</button>
+        <div class="noReplyLabel" *ngIf=!isLoggedIn()> Log in to reply to this event </div>
+        <button *ngIf=isLoggedIn() mat-button color="primary" (click)="openRespondEventDialog(item.idEvent,item.author)" > Reply</button>
         <!--<button mat-button>Modifier</button>-->
       </mat-card-actions>
+    </div>
     </mat-card>
   </div>
 </div>

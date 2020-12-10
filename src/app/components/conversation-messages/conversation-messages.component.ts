@@ -3,7 +3,6 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { IMessage } from 'src/app/domain/imessage';
-import { INotification } from 'src/app/domain/inotification';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { WebSocketClientService } from 'src/app/services/web-socket-client.service';

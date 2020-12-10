@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IUser } from 'src/app/domain/iuser';
+import { IUserAuth } from 'src/app/domain/iuser-auth';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { WebSocketClientService } from 'src/app/services/web-socket-client.service';
 
@@ -35,7 +35,9 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
 
-  login(c: IUser) {
+  get f() { return this.form.controls; }
+
+  login(c: IUserAuth) {
     this.loading = true;
     this.authenticationService.login(c.username, c.password);
 

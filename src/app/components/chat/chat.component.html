@@ -1,12 +1,12 @@
-  <div class="chat-content" fxLayout="row">
-  <mat-card class="mat-elevation-z4">
-    <div fxFlex="30%" class="conversation-list">
+<div class="chat">
+  <div class="mat-elevation-z4 chat-content" fxLayout="row">
+    <div fxFlex="30%" fxFlex.sm="40%" fxFlex.xs="45%" class="conversation-list">
       <app-conversation-list></app-conversation-list>
     </div>
-    <div fxFlex class="conversation-messages">
+    <div fxFlex="70%" fxFlex.sm="60%" fxFlex.xs="55%" class="conversation-messages">
       <router-outlet></router-outlet>
     </div>
-  </mat-card>
+  </div>
 </div>
 
 <!--

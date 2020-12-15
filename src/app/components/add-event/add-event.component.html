@@ -5,16 +5,25 @@
     <input autocomplete="off" matInput placeholder="Ex. Linkin park concert" formControlName="name" required>
   </mat-form-field>
   <mat-form-field>
+    <mat-label>Place</mat-label>
+    <input autocomplete="off" matInput placeholder="Ex. Brussels" formControlName="place" required>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Image URL</mat-label>
+    <input autocomplete="off" matInput placeholder="Ex. http://myImage.com" formControlName="picture">
+  </mat-form-field>
+  <mat-form-field>
     <mat-label>Description</mat-label>
     <textarea matInput placeholder="Ex. I love this concert" formControlName="description"
-      style="min-height: 150px; max-height: 200px;"></textarea>
+      style="min-height: 150px; max-height: 200px;" required></textarea>
   </mat-form-field>
-  <mat-form-field class="example-full-width">
+  <mat-form-field>
     <input type="text"
            placeholder="Pick one event type"
            matInput
            formControlName="type"
-           [matAutocomplete]="auto">
+           [matAutocomplete]="auto"
+           required>
     <mat-autocomplete #auto="matAutocomplete" [displayWith]="getOptionText">
       <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
       <!--<mat-option *ngFor="let option of eventTypeFilter:?" [value]="option">-->

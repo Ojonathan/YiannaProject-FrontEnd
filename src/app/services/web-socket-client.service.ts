@@ -11,20 +11,18 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class WebSocketClientService {
-  public notificationReceived = new BehaviorSubject<boolean>(false);
-  public notificationMessage =  new BehaviorSubject<any>({});
+  public notificationReceived = new BehaviorSubject<boolean>(true);
+  public notificationMessage = new BehaviorSubject<any>({});
   public notification: any;
-
 
   private client!: Stomp.Client;
   private subscription!: StompSubscription;
 
   constructor() {
-
   }
 
   //connect and subscribe
-  connect(){
+  connect() {
     this.client = Stomp.over(new SockJS(environment.url_base + '/ws'));
     console.log('Client trying to connect to chat');
     //connect({}, onConnected, onError);
@@ -34,36 +32,44 @@ export class WebSocketClientService {
         // subscribe
         this.onConnected();
       },
-      err => {this.onError(err);});
+      err => {
+        this.onError(err); });
   }
 
-  disconnect(){
-    this.subscription.unsubscribe();
-    this.client.disconnect(function() { });
+  disconnect() {
+    if(this.subscription){
+      this.subscription.unsubscribe();
+    }
+    if(this.client){
+      this.client.disconnect(function () { });
+    }
   }
 
   //subscribe to my user messages
   onConnected() {
     console.log("connected");
-    this.subscription = this.client.subscribe(
-      "/user/" + localStorage.getItem('currentUserName') + "/queue/messages",
-      msg => {
-        // send observers that a notifications has arrived
-        this.saveNotification(JSON.parse(msg.body))
-        this.notificationReceived.next(true);
-        // send observers the message
-        //let notification : INotification = JSON.parse(msg.body);
-        this.notificationMessage.next(JSON.parse(msg.body));
-        //this.onMessageReceived(msg);
-      }
-    );
+    var currentUser= localStorage.getItem('currentUser');
+    if (currentUser) {
+      this.subscription = this.client.subscribe(
+        "/user/" + JSON.parse(currentUser).username + "/queue/messages",
+        msg => {
+          // send observers that a notifications has arrived
+          //this.saveNotification(JSON.parse(msg.body))
+          this.notificationMessage.next(JSON.parse(msg.body));
+          this.notificationReceived.next(true);
+          // send observers the message
+          //let notification : INotification = JSON.parse(msg.body);
+          //this.onMessageReceived(msg);
+        }
+      );
+    }
   };
 
   onError(err: any) {
     console.log(err);
   };
 
-  saveNotification(n : any){
+  saveNotification(n: any) {
     this.notification = n;
   }
 
@@ -78,7 +84,7 @@ export class WebSocketClientService {
   };*/
 
   //send message to backend
-  send(eventId:string, payload: any): void {
-    this.client.send("/app/chat/" + eventId , {}, JSON.stringify(payload));
+  send(eventId: string, payload: any): void {
+    this.client.send("/app/chat/" + eventId, {}, JSON.stringify(payload));
   }
 }

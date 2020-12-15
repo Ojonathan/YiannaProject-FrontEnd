@@ -1,16 +1,27 @@
 .card{
   margin: 7px;
-}
-
-mat-card-actions{
-  margin: 0px;
+  //min-height: 250px;
+  //margin-bottom: 20px; /* same as fxLayoutGap for even distribution */
 }
 
 mat-card{
-  padding-bottom: 0px;
-  //z-index: -1 !important;//shadow
+  border-radius: 8px;
 }
 
+.imageCard{
+  height: 210px;
+  //object-fit: contain;
+}
+
+.imageaCardAvatar{
+  cursor: pointer;
+}
+
+//Zone Button
 .noReplyLabel{
   color : rgba(153, 153, 153, 0.54)
+}
+
+.replyButton {
+  width: 100%;
 }

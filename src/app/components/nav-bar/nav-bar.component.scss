@@ -9,6 +9,12 @@
 .website-title{
   cursor: pointer;
   outline: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.logo{
+  height: 50px;
 }
 
 mat-toolbar{

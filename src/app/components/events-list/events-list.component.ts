@@ -1,7 +1,7 @@
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IEvent } from 'src/app/domain/ievent';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { EventService } from 'src/app/services/event.service';
@@ -19,6 +19,7 @@ export class EventsListComponent implements OnInit {
   constructor(private _eventService: EventService,
     private _authService: AuthenticationService,
     private _router : ActivatedRoute,
+    private _routerLink: Router,
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -90,4 +91,14 @@ export class EventsListComponent implements OnInit {
     isLoggedIn(){
       return this._authService.isLoggedIn();
     }
+
+    itsMe(me: string | undefined): boolean{
+      return this._authService.getCurrentUsername() === me;
+    }
+
+    navigateToUser(username : string){
+      console.log("imagen clickeada !!!")
+      this._routerLink.navigate(['/profile',username]);
+    }
 }
+

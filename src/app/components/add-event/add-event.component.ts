@@ -41,6 +41,8 @@ export class AddEventComponent implements OnInit {
 
     this.form = this.fb.group({
       name: ['', Validators.required],
+      place: ['', Validators.required],
+      picture: [''],
       description: ['', Validators.required],
       carAvailable: [false],
       type: [Validators.required]

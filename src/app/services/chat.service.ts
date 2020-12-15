@@ -43,5 +43,14 @@ export class ChatService {
     return this._http.get<IConversation[]>(URL);
   }
 
+  getConversationEventTitle(idEvent: string): Observable<any> {
+    const URL: string = environment.url_base + `/conversations/event/${idEvent}`;
+    return this._http.get(URL, {responseType: 'text'});
+  }
+
+  getUserAvatar(username: string): Observable<any> {
+    const URL: string = environment.url_base + `/user/${username}/avatar`;
+    return this._http.get(URL, {responseType: 'text'});
+  }
 }
 

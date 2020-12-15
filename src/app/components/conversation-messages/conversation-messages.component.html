@@ -1,14 +1,49 @@
-<h2>Received messages</h2>
-<ol>
-  <li *ngFor="let message of messages">
-    Message received from: {{message.senderName}} -- to -- {{message.recipientName}} ----{{message.content}}
-  </li>
-</ol>
+<div fxLayout="column" fxLayoutAlign="start none" fxFlexFill>
+  <h2 class="messages-label">
+    Messages
+  </h2>
 
-<mat-form-field>
-  <mat-label>White a message</mat-label>
-  <input autocomplete="off" matInput type="text" placeholder="message" #messageToSend required/>
-</mat-form-field>
-<button mat-raised-button color="primary" class="send-button" (click)="onSendMessage(messageToSend.value)">
-  Send Message
-</button>
+  <mat-divider></mat-divider>
+
+  <div fxFlex *ngIf="!activated" fxLayout="column" fxLayoutAlign="center center" >
+    <h2 class="messages-label">
+      No messages
+    </h2>
+    <h2 class="messages-label">
+      Select a conversation
+    </h2>
+  </div>
+
+  <div *ngIf="activated" class="messages">
+    <div class="message" *ngFor="let message of messages" fxLayout="row" fxLayoutAlign="start" >
+      <div fxFlex="70px" fxLayoutAlign="start start">
+        <img class="message-avatar" [src]="message.avatarSender"
+          onerror="this.src='assets/default-user.png'" alt="" />
+      </div>
+
+      <div class="test" fxFlex fxLayout="column">
+        <div><b>{{message.senderName}}</b></div>
+        <div>{{message.content}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="activated" class="sendMessage" fxLayout="row" fxLayoutAlign="start end">
+    <mat-form-field fxFlex>
+      <mat-label>Write a message</mat-label>
+      <textarea matInput
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"
+                #messageToSend
+                required></textarea>
+    </mat-form-field>
+
+    <div fxFlex="150px" class="buttonSend">
+      <button mat-raised-button color="primary" (click)="onSendMessage(messageToSend.value)">
+        Send
+      </button>
+    </div>
+  </div>
+</div>

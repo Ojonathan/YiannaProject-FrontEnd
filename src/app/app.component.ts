@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from './services/authentication.service';
+import { WebSocketClientService } from './services/web-socket-client.service';
 
 @Component({
   selector: 'app-root',
@@ -6,11 +8,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
+
   title = 'YiannaProject-FrontEnd';
 
-  //onButtonClick(){
-  //  console.log("Clicked");
-  //}
+  constructor(private _webSocketService : WebSocketClientService,
+    private _auth : AuthenticationService) { }
+
+  ngOnInit(): void {
+    if(this._auth.isLoggedIn()){
+      this._webSocketService.connect();
+    }
+  }
 
 }

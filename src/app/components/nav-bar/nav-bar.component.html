@@ -1,9 +1,9 @@
-<mat-toolbar class="mat-elevation-z4" color="white">
+<mat-toolbar class="mat-elevation-z8" color="white">
   <!--<button mat-icon-button class="icon" aria-label="icon-button with menu icon">
     <mat-icon>menu</mat-icon>
   </button>-->
   <div class="website-title" [routerLink]="['']" routerLinkActive="router-link-active">
-    <span>Yianna</span>
+    <img class="logo" src="assets/logo.png"/>
   </div>
 
   <span class="spacer"></span>
@@ -24,7 +24,7 @@
     <span class="textPadding" fxHide.lt-md="true">Messages</span>
   </button>
 
-  <button mat-button *ngIf="isLoggedIn()" [routerLink]="['/profile']" routerLinkActive="router-link-active">
+  <button mat-button *ngIf="isLoggedIn()" [routerLink]="['/profile', username]" routerLinkActive="router-link-active">
     <mat-icon>account_circle</mat-icon>
     <span class="textPadding" fxHide.lt-md="true">Account</span>
   </button>

@@ -1,20 +1,23 @@
 <div fxLayout="column" fxFlexFill>
   <div fxFlex="200px" class="myDetails" fxLayout="row">
-    <div fxFill fxFlex="40%" fxLayoutAlign="end center">
-        <img src="https://via.placeholder.com/150">
+    <div fxFill fxFlex="30%" fxFlex.xs="40%" fxLayoutAlign="end center">
+      <img class="mat-elevation-z3 avatar" [src]="userInfo?.avatar" onerror="this.src='assets/default-user.png'" alt="" />
     </div>
     <div fxFill fxFlex fxLayout="column" class="userdetails">
-      <div fxFlex="40%" fxLayoutAlign="start end">
-        <h1>{{userInfo.username}}</h1>
+      <div class="userName" fxFlex="45%" fxLayout="row "fxLayoutAlign="start end">
+        <h1 class="userNameLabel">{{userInfo?.username}}</h1>
+        <span class="spacer"></span>
+        <button *ngIf="activated" mat-stroked-button (click)="openEditProfileDialog()">Edit Profile</button>
       </div>
       <mat-divider></mat-divider>
       <div fxFlex>
-        <h3>{{userInfo.description}}</h3>
+        <h3>{{userInfo?.description}}</h3>
       </div>
     </div>
   </div>
   <mat-divider></mat-divider>
-  <div fxFlex class="myEvents">
+  <div fxFlex class="myEvents" fxLayout="column" fxLayoutAlign="start center">
+    <h2 class="myEventsTitle">My events</h2>
     <div fxLayout="row wrap" fxLayoutGap="grid">
       <div fxFlex="33%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let item of myEvents">
         <mat-card class="mat-elevation-z3 card">
@@ -23,24 +26,24 @@
               <mat-card-subtitle>Published by {{item.author}}</mat-card-subtitle>
               <img mat-card-avatar src="https://www.adventurealternative.com/media/1789/himalaya-evening.jpg" />
             </mat-card-header>-->
-          <img mat-card-image src="https://www.adventurealternative.com/media/1789/himalaya-evening.jpg" />
-          <mat-card-header>
+            <img class="imageCard" mat-card-image [src]="item.picture" onerror="this.src='assets/default-event.png'" alt="" />
+            <mat-card-header>
             <mat-card-title>{{item.name}}</mat-card-title>
-            <!--<mat-card-subtitle>Published by {{item.author}}</mat-card-subtitle>-->
-            <img mat-card-avatar src="https://www.adventurealternative.com/media/1789/himalaya-evening.jpg" />
           </mat-card-header>
           <mat-card-content>
-            <p>Voiture disponible: {{item.carAvailable}}</p>
+            <p>
+              <b>Place: </b>{{item.place}}<br>
+              <b>Available car: </b>{{item.carAvailable}}
+            </p>
             <p>{{item.description}}</p>
           </mat-card-content>
 
           <mat-divider></mat-divider>
 
-          <mat-card-actions>
-            <!-- open dialog-->
+          <!--<mat-card-actions>
             <button mat-button color="primary" >Modify</button>
             <button mat-button color="warn" >Delete</button>
-          </mat-card-actions>
+          </mat-card-actions>-->
         </mat-card>
       </div>
     </div>

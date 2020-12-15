@@ -18,12 +18,12 @@ const routes: Routes = [
   ]},
   { path: 'chat', component: ChatComponent,
   children:[
-    {path: '', component: NotFoundComponent},
+    {path: '', component: ConversationMessagesComponent},
     {path: 'conversation/:idConversation', component: ConversationMessagesComponent}
   ]},
   { path: 'login', component: LoginComponent},
   { path: 'signup', component: SignupComponent},
-  { path: 'profile', component: ProfileComponent},
+  { path: 'profile/:username', component: ProfileComponent},
   { path: '**', component: NotFoundComponent}
 ];
 

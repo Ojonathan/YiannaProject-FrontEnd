@@ -6,4 +6,5 @@ export interface IMessage {
   recipientName: string;
   content: string;
   timestamp?: Date;
+  avatarSender?: string;
 }

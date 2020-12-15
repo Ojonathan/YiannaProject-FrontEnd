@@ -14,6 +14,7 @@ import { AddEventComponent } from '../add-event/add-event.component';
 })
 export class NavBarComponent implements OnInit {
   countMessages: number = 0;
+  username : string ='';
 
   constructor(private _authService: AuthenticationService,
     private _webSocketClientService: WebSocketClientService,
@@ -25,7 +26,8 @@ export class NavBarComponent implements OnInit {
     // change message notification bagde
     this._webSocketClientService.notificationReceived.subscribe(
       res => {
-        if(res){
+        if(res && this._authService.isLoggedIn()){
+          this.username = this._authService.getCurrentUsername();
           this._chatService.countNewMessagesTotal(this._authService.getCurrentUsername()).subscribe(
             res => this.countMessages = res
           )
@@ -36,6 +38,10 @@ export class NavBarComponent implements OnInit {
 
   isLoggedIn(): boolean {
     return this._authService.isLoggedIn();
+  }
+
+  getJwtSubjet(): string {
+    return this._authService.getJwtSubjet();
   }
 
   logout() {

@@ -41,6 +41,8 @@ export class RespondEventComponent implements OnInit {
       content: contentMessage
     };
 
+    //check if event exists before sending
+
     this._webSocketClientService.send(this.idEvent,newmessage);
     // send message to create a conversation
       this.dialogRef.close();

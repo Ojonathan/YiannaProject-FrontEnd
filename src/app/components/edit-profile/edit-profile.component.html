@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Edit Profile</h2>
+<mat-dialog-content fxLayout="column" [formGroup]="form" novalidate>
+  <mat-form-field>
+    <mat-label>First Name</mat-label>
+    <input autocomplete="off" matInput placeholder="Ex. Jhon" formControlName="firstname" required>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Last Name</mat-label>
+    <input autocomplete="off" matInput placeholder="Ex. Brussels" formControlName="lastname" required>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Avatar URL</mat-label>
+    <input autocomplete="off" matInput placeholder="Ex. http://myImage.com" formControlName="avatar">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea matInput placeholder="Ex. I love this concert" formControlName="description"
+      style="min-height: 150px; max-height: 200px;" required></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+
+<!--<p>Form value: {{form.value | json}}</p>-->
+
+<mat-dialog-actions>
+  <button mat-raised-button (click)="close()">Cancel</button>
+  <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="saveProfile()">Update Profile</button>
+</mat-dialog-actions>
+

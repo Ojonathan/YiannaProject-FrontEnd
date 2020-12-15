@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { NgModule } from '@angular/core';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -27,6 +27,8 @@ import { ConversationMessagesComponent } from './components/conversation-message
 import { FooterComponent } from './components/footer/footer.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { JwtInterceptor } from './interceptors/jwt-interceptor';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { SignupComponent } from './components/signup/signup.component';
     ConversationMessagesComponent,
     FooterComponent,
     ProfileComponent,
-    SignupComponent
+    SignupComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +63,11 @@ import { SignupComponent } from './components/signup/signup.component';
   ],
   providers: [
     {
+      provide: HTTP_INTERCEPTORS,
+				useClass: JwtInterceptor,
+        multi: true
+    },
+    /*{
       provide: InjectableRxStompConfig,
       useValue: RxStompConfig,
     },
@@ -67,7 +75,7 @@ import { SignupComponent } from './components/signup/signup.component';
       provide: RxStompService,
       useFactory: rxStompServiceFactory,
       deps: [InjectableRxStompConfig],
-    },
+    },*/
   ],
   bootstrap: [AppComponent],
   entryComponents: [AddEventComponent]

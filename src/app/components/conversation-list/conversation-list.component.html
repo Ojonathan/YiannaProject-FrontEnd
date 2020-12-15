@@ -1,13 +1,27 @@
-<div class="conversation-label">
-  Conversations
+<div fxFill fxLayout="column" fxLayoutAlign="start none">
+
+  <h2 class="conversation-label">
+    Conversations
+  </h2>
+  <mat-divider></mat-divider>
+
+  <mat-selection-list #eventType [multiple]="false">
+    <div *ngFor="let item of conversations">
+      <mat-list-option [routerLink]="['/chat/conversation', item.idConversation]" routerLinkActive="router-link-active"
+        [value]="item.idConversation">
+        <div fxLayout="row" fxLayoutAlign="start none" fxFlexFill>
+          <div fxFlex="70px" fxLayoutAlign="start center">
+            <img class="mat-elevation-z3 conversation-avatar" [src]="item?.avatarContact"
+              onerror="this.src='assets/default-user.png'" alt="" />
+          </div>
+          <div class="conversationListTitle" fxFlex fxLayout="column" fxLayoutAlign="center none">
+            <div><b>{{item?.eventTittle}}</b></div>
+            <div>{{item?.contactName}}</div>
+          </div>
+        </div>
+      </mat-list-option>
+    </div>
+  </mat-selection-list>
 </div>
-<mat-selection-list #eventType [multiple]="false">
-  <div *ngFor="let item of conversations">
-    <mat-list-option [routerLink]="['/chat/conversation', item.idConversation]" routerLinkActive="router-link-active"
-      [value]="item.idConversation">
-      {{item.idConversation}}
-    </mat-list-option>
-  </div>
-</mat-selection-list>
 
 <!--<p> Option selected: {{eventType.selectedOptions.selected[0]?.value}} </p>-->

@@ -15,6 +15,7 @@ import { WebSocketClientService } from 'src/app/services/web-socket-client.servi
 export class ConversationMessagesComponent implements OnInit, OnDestroy {
 
   messages: IMessage[] = [];
+  x: number[] = [];
   currentIdEvent: string = '';
   currentNotif: any;
   currentIdConversation: string = '';
@@ -22,6 +23,7 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
   currentSenderName: string = '';
   private sub: any;
   reset: boolean = false;
+  activated: boolean = false;
 
   constructor(private _chatService: ChatService,
     private _webSocketClientService: WebSocketClientService,
@@ -29,85 +31,34 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
     private _router: ActivatedRoute) { }
 
   ngOnInit(): void {
-    /*this.sub = this._router.paramMap.subscribe(
-      res => {
-        if (res.has('idConversation')) {
-          var localIdConversation = res.get('idConversation');
-          console.log("current Conversation: " + localIdConversation);
 
-          if (typeof localIdConversation === 'string') {
-            this._chatService.findChatMessages(localIdConversation, this._authService.getCurrentUsername()).subscribe(
-              resp => {
-                if (typeof localIdConversation === 'string') {
-                  this.messages = resp;
-                  this.setMessageFields(localIdConversation);
-                  // update bagde
-                  this._webSocketClientService.notificationReceived.next(true);
-                }
-              });
-
-            this._webSocketClientService.notificationMessage.pipe(
-              filter(notif => {
-                console.log("" + notif.idConversation + " --- " + localIdConversation);
-                return notif.idConversation == localIdConversation;
-                }),
-                switchMap(
-                  notif => {
-                    console.log("retornar observador si el filtro se cumple");
-                    return this._chatService.findChatMessage(notif.idChatNotif);
-                  }
-                )).subscribe(
-                  message => {
-                    console.log("Before Push");
-                    this.messages.push(message);
-                    this._webSocketClientService.notificationReceived.next(true);
-                  }
-                );
-          }
-        }
-      },
-      error => console.log('something wrong occurred: ' + error)
-    );*/
+    for (var i=1;i<=50;i++) {
+      this.x.push(i);
+    }
 
     this.sub = this._router.paramMap
       .pipe(
+        filter((params: Params) => {
+          this.activated=false;
+          return params.has('idConversation');
+        }),
         switchMap((params: Params) => {
           this.reset = false;
           this.setMessageFields(params.get('idConversation'));
+          // get chat messages using idConversation, and recipientName (used to mark messages as DELIVERED)
           return this._chatService.findChatMessages(this.currentIdConversation, this._authService.getCurrentUsername())
             .pipe(
               switchMap(
                 resp => {
                   this.messages = resp;
+                  for(let item of this.messages){
+                    this._chatService.getUserAvatar(item.senderName).subscribe(
+                      res => item.avatarSender = res
+                    );
+                  }
                   // update bagde
                   this._webSocketClientService.notificationReceived.next(true);
-                  /*return this._webSocketClientService.notificationReceived
-                  .pipe(
-                  filter(res => {
-                    if(res){
-                      console.log("TRUE");
-                      this.currentNotif = this._webSocketClientService.notification;
-                      return true;
-                    }else{
-                      console.log("FALSE");
-                      this.currentNotif = null;
-                      return false;
-                    }
-                  }),
-                  switchMap(
-                    res => {
-                      console.log("" + this.currentNotif.idConversation + " --- " + this.currentIdConversation);
-                      return this._chatService.findChatMessage(this.currentNotif.idChatNotif).pipe(
-                        map(
-                          message => {
-                            console.log("Before Push");
-                            this.messages.push(message);
-                          }
-                        )
-                      );
-                    }
-                  )
-                  );*/
+
                   return this._webSocketClientService.notificationMessage
                     .pipe(
                       filter(
@@ -131,8 +82,13 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
                             map(
                               message => {
                                 console.log("Before Push");
-                                this.messages.push(message);
-                                this._webSocketClientService.notificationReceived.next(true);
+                                this._chatService.getUserAvatar(message.senderName).subscribe(
+                                  res => {
+                                    message.avatarSender = res;
+                                    this.messages.push(message);
+                                    this._webSocketClientService.notificationReceived.next(true);
+                                  }
+                                );
                               }
                             )
                           );
@@ -144,30 +100,15 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
             );
         })
       ).subscribe();
-
-            /*this._webSocketClientService.notificationMessage.pipe(
-              filter(notif => {
-                console.log("" + notif.idConversation + " --- " + localIdConversation);
-                return notif.idConversation == localIdConversation;
-                }),
-                switchMap(
-                  notif => {
-                    console.log("retornar observador si el filtro se cumple");
-                    return this._chatService.findChatMessage(notif.idChatNotif);
-                  }
-                )).subscribe(
-                  message => {
-
-                  }
-                );*/
   }
 
   ngOnDestroy() {
-    console.log("unsubscribe");
+    console.log("unsubscribe conversation Messages");
     this.sub.unsubscribe();
   }
 
   setMessageFields(idConversation: string) {
+    this.activated=true;
     this.currentIdConversation = idConversation;
 
     var splitted = idConversation.split("_");
@@ -193,6 +134,11 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
 
     //modify eventId
     this._webSocketClientService.send(this.currentIdEvent, messageToSend);
-    this.messages.push(messageToSend);
+    this._chatService.getUserAvatar(messageToSend.senderName).subscribe(
+      res => {
+        messageToSend.avatarSender = res;
+        this.messages.push(messageToSend);
+      }
+    );
   }
 }

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { IAuthorEvent } from '../domain/iauthor-event';
 import { IEvent } from '../domain/ievent';
 
 @Injectable({
@@ -28,9 +29,9 @@ export class EventService {
     return this._http.get<IEvent[]>(URL);
   }
 
-  public getEventAuthor(idEvent:number): Observable<string>{
+  public getEventAuthor(idEvent:number): Observable<IAuthorEvent>{
     const URL: string = environment.url_base + `/events/${idEvent}/author`;
-    return this._http.get(URL, {responseType: 'text'});
+    return this._http.get<IAuthorEvent>(URL);
   }
 }
 

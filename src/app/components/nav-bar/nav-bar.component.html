@@ -25,7 +25,8 @@
   </button>
 
   <button mat-button *ngIf="isLoggedIn()" [routerLink]="['/profile', username]" routerLinkActive="router-link-active">
-    <mat-icon>account_circle</mat-icon>
+    <!--<mat-icon>account_circle</mat-icon>-->
+    <img class="avatar" [src]="avatar" onerror="this.src='assets/default-user.png'" alt="" />
     <span class="textPadding" fxHide.lt-md="true">Account</span>
   </button>
 

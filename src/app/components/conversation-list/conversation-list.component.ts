@@ -13,6 +13,7 @@ import { WebSocketClientService } from 'src/app/services/web-socket-client.servi
 })
 export class ConversationListComponent implements OnInit {
   conversations: IConversation[] = [];
+  isLoaded: boolean = false;
 
   constructor(private _chatService: ChatService,
     private _webSocketClientService: WebSocketClientService,
@@ -32,7 +33,9 @@ export class ConversationListComponent implements OnInit {
             return this._chatService.findUserConversations(this._authService.getCurrentUsername())
               .pipe(
                 switchMap(conversations => {
+                  this.isLoaded= false;
                   this.conversations = conversations;
+
                   return forkJoin(conversations
                     .map((conversation: IConversation) => {
                       if (conversation.senderName == this._authService.getCurrentUsername()){
@@ -50,6 +53,7 @@ export class ConversationListComponent implements OnInit {
                         map(result =>{
                           conversation.avatarContact = result[0];
                           conversation.eventTittle = result[1];
+                          this.isLoaded = true;
                         })
                       )
                     })

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { WebSocketClientService } from 'src/app/services/web-socket-client.service';
@@ -14,7 +15,8 @@ import { AddEventComponent } from '../add-event/add-event.component';
 })
 export class NavBarComponent implements OnInit {
   countMessages: number = 0;
-  username : string ='';
+  username : string = '';
+  avatar: string = '';
 
   constructor(private _authService: AuthenticationService,
     private _webSocketClientService: WebSocketClientService,
@@ -24,16 +26,31 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit(): void {
     // change message notification bagde
-    this._webSocketClientService.notificationReceived.subscribe(
-      res => {
-        if(res && this._authService.isLoggedIn()){
-          this.username = this._authService.getCurrentUsername();
-          this._chatService.countNewMessagesTotal(this._authService.getCurrentUsername()).subscribe(
-            res => this.countMessages = res
-          )
-        }
-      }
-    );
+    this.username = this._authService.getCurrentUsername();
+
+    this._chatService.getUserAvatar(this.username)
+    .pipe(
+      switchMap(res => {
+        this.avatar = res;
+        return this._webSocketClientService.notificationReceived
+        .pipe(
+          filter(v => {
+            if(res && this._authService.isLoggedIn()){
+              return true
+            }
+            return false;
+          }),
+          switchMap(res => {
+              return this._chatService.countNewMessagesTotal(this._authService.getCurrentUsername())
+              .pipe(
+                map(res => {
+                  this.countMessages = res;
+                })
+              );
+          })
+        );
+      })
+    ).subscribe();
   }
 
   isLoggedIn(): boolean {

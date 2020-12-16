@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url_base: 'http://localhost:8080' //my heroku backend
+  url_base: 'https://damp-bastion-18885.herokuapp.com' //my heroku backend
 };

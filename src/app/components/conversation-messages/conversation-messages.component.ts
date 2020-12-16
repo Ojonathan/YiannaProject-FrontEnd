@@ -24,6 +24,7 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
   private sub: any;
   reset: boolean = false;
   activated: boolean = false;
+  isLoaded: boolean = false;
 
   constructor(private _chatService: ChatService,
     private _webSocketClientService: WebSocketClientService,
@@ -43,6 +44,8 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
           return params.has('idConversation');
         }),
         switchMap((params: Params) => {
+          this.isLoaded = false;
+          this.activated=true;
           this.reset = false;
           this.setMessageFields(params.get('idConversation'));
           // get chat messages using idConversation, and recipientName (used to mark messages as DELIVERED)
@@ -50,14 +53,19 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
             .pipe(
               switchMap(
                 resp => {
+                  this._webSocketClientService.notificationReceived.next(true);
                   this.messages = resp;
                   for(let item of this.messages){
                     this._chatService.getUserAvatar(item.senderName).subscribe(
                       res => item.avatarSender = res
                     );
                   }
-                  // update bagde
-                  this._webSocketClientService.notificationReceived.next(true);
+
+                  this.isLoaded = true;
+                  var container = document.getElementById("messages");
+                  if(container){
+                    container.scrollTop = container.scrollHeight;
+                  }
 
                   return this._webSocketClientService.notificationMessage
                     .pipe(
@@ -70,9 +78,6 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
                           }
                           this.reset = true;
                           return false;
-
-                          //console.log(notif.idConversation);
-                          //return (notif.idConversation == this.currentIdConversation) && this.reset;
                         }
                       ),
                       switchMap(
@@ -102,13 +107,19 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
       ).subscribe();
   }
 
+  ngAfterViewInit() {
+    var container = document.getElementById("messages");
+    if(container){
+      container.scrollTop = container.scrollHeight;
+    }
+  }
+
   ngOnDestroy() {
     console.log("unsubscribe conversation Messages");
     this.sub.unsubscribe();
   }
 
   setMessageFields(idConversation: string) {
-    this.activated=true;
     this.currentIdConversation = idConversation;
 
     var splitted = idConversation.split("_");

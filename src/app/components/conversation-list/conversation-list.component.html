@@ -5,10 +5,11 @@
   </h2>
   <mat-divider></mat-divider>
 
+  <!--<div *ngIf="isLoaded">-->
   <mat-selection-list #eventType [multiple]="false">
-    <div *ngFor="let item of conversations">
-      <mat-list-option [routerLink]="['/chat/conversation', item.idConversation]" routerLinkActive="router-link-active"
-        [value]="item.idConversation">
+    <div *ngFor="let item of conversations" >
+      <mat-list-option [routerLink]="['/chat/conversation', item?.idConversation]" routerLinkActive="router-link-active"
+        [value]="item?.idConversation">
         <div fxLayout="row" fxLayoutAlign="start none" fxFlexFill>
           <div fxFlex="70px" fxLayoutAlign="start center">
             <img class="mat-elevation-z3 conversation-avatar" [src]="item?.avatarContact"
@@ -16,12 +17,13 @@
           </div>
           <div class="conversationListTitle" fxFlex fxLayout="column" fxLayoutAlign="center none">
             <div><b>{{item?.eventTittle}}</b></div>
-            <div>{{item?.contactName}}</div>
+            <div>talking with: {{item?.contactName}}</div>
           </div>
         </div>
       </mat-list-option>
     </div>
   </mat-selection-list>
+<!--</div>-->
 </div>
 
 <!--<p> Option selected: {{eventType.selectedOptions.selected[0]?.value}} </p>-->

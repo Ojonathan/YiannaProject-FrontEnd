@@ -14,7 +14,7 @@
     </h2>
   </div>
 
-  <div *ngIf="activated" class="messages">
+  <div *ngIf="activated && isLoaded" id="messages" class="messages">
     <div class="message" *ngFor="let message of messages" fxLayout="row" fxLayoutAlign="start" >
       <div fxFlex="70px" fxLayoutAlign="start start">
         <img class="message-avatar" [src]="message.avatarSender"
@@ -28,7 +28,7 @@
     </div>
   </div>
 
-  <div *ngIf="activated" class="sendMessage" fxLayout="row" fxLayoutAlign="start end">
+  <div *ngIf="activated && isLoaded" class="sendMessage" fxLayout="row" fxLayoutAlign="start end">
     <mat-form-field fxFlex>
       <mat-label>Write a message</mat-label>
       <textarea matInput

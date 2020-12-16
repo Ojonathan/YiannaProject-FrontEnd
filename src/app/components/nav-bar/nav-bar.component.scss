@@ -17,6 +17,18 @@
   height: 50px;
 }
 
+.avatar{
+  width: 30px;
+
+  border-radius: 50%;
+  border: 1px solid rgb(0, 0, 0,.12);
+
+  //margin-right: 10px;
+  //margin-left: 5px;
+
+  object-fit: fill;
+}
+
 mat-toolbar{
   position: relative;
   z-index: 100 !important;//shadow

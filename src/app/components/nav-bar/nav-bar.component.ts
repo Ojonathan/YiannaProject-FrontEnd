@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ChatService } from 'src/app/services/chat.service';
@@ -26,31 +27,44 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit(): void {
     // change message notification bagde
-    this.username = this._authService.getCurrentUsername();
+    const avatar = this._authService.isLogged
+      .pipe(
+        filter(v=> {
+          if(this._authService.isLoggedIn()){
+            return true;
+          }
+          return false;
+        }),
+        switchMap(res => {
+          this.username = this._authService.getCurrentUsername();
+          return this._chatService.getUserAvatar(this._authService.getCurrentUsername())
+            .pipe(
+              map(res => {
+                this.avatar = res;
+              })
+            )
+        })
+      );
 
-    this._chatService.getUserAvatar(this.username)
-    .pipe(
-      switchMap(res => {
-        this.avatar = res;
-        return this._webSocketClientService.notificationReceived
-        .pipe(
-          filter(v => {
-            if(res && this._authService.isLoggedIn()){
-              return true
-            }
-            return false;
-          }),
-          switchMap(res => {
-              return this._chatService.countNewMessagesTotal(this._authService.getCurrentUsername())
-              .pipe(
+    const countMessages = this._webSocketClientService.notificationReceived
+      .pipe(
+        filter(v => {
+          if(this._authService.isLoggedIn()){
+            return true;
+          }
+          return false;
+        }),
+        switchMap(res => {
+          return this._chatService.countNewMessagesTotal(this._authService.getCurrentUsername())
+            .pipe(
                 map(res => {
                   this.countMessages = res;
                 })
               );
-          })
-        );
-      })
-    ).subscribe();
+        })
+      );
+
+      forkJoin([avatar,countMessages]).subscribe();
   }
 
   isLoggedIn(): boolean {

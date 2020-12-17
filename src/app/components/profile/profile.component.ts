@@ -34,6 +34,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap((params: Params) => {
           this.username = params.get('username');
+          console.log(this.username);
           this.activated = this.username == this._authService.getCurrentUsername();
 
           return forkJoin([
@@ -75,33 +76,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
               )
             )
             ]);
-
-          /*return this._profileService.getUserByUsername(this.username)
-            .pipe(
-              switchMap(
-                res => {
-                  this.userInfo =  res;
-                  return this._eventService.eventAdded
-                    .pipe(
-                      filter(
-                        v => {
-                          return v;
-                        }
-                      ),
-                      switchMap(
-                        v => {
-                          return this._profileService.getEventsByUser(this.username)
-                          .pipe(
-                            map(
-                              events => this.myEvents = events
-                            )
-                          );
-                        }
-                      )
-                    );
-                }
-              )
-            );*/
         })
       ).subscribe();
   }

@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { WebSocketClientService } from './web-socket-client.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,9 @@ export class AuthenticationService {
 
     // Angular usara el token para crear una peticion HTTP
     // el servidor respondera si tiene acceso o no
+
+  public isLogged = new BehaviorSubject<boolean>(false);
+
 
   constructor(private http: HttpClient) { }
 
@@ -58,6 +62,5 @@ export class AuthenticationService {
       return JSON.parse(currentUser).username;
     }
     return '';
-
   }
 }

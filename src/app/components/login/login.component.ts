@@ -47,8 +47,13 @@ export class LoginComponent implements OnInit {
         .subscribe(
             data => {
               if(this._authenticationService.isLoggedIn()){
+                // start connection
                 this._webSocketClientService.connect();
+                // start verification of notfifications
                 this._webSocketClientService.notificationReceived.next(true);
+                // is logged
+                this._authenticationService.isLogged.next(true);
+                // go to main page
                 this.router.navigate([this.returnUrl]);
               }
                 //this.router.navigate([this.returnUrl]);

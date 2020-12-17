@@ -8,14 +8,13 @@
               <input
                 formControlName="username"
                 matInput
-                placeholder="User Name"
+                placeholder="UserName"
                 required
                 name="">
               <mat-icon matSuffix>perm_identity</mat-icon>
               <mat-error *ngIf="f.username.invalid">
                 Username is required
               </mat-error>
-
             </mat-form-field>
             <mat-form-field>
               <input
@@ -26,6 +25,15 @@
                 name="">
                 <mat-error *ngIf="f.email.invalid">Email is required</mat-error>
               <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                formControlName="avatar"
+                matInput
+                placeholder="Avatar URL"
+                required
+                autocomplete="off">
+                <mat-error *ngIf="f.avatar.invalid">Avatar Image is required</mat-error>
             </mat-form-field>
             <mat-form-field>
               <input

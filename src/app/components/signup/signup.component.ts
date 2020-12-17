@@ -27,6 +27,7 @@ export class SignupComponent implements OnInit {
     this.form = this.formBuilder.group({
       username: ['', Validators.required],
       email: ['', Validators.required],
+      avatar: ['', Validators.required],
       password: ['', Validators.required]
     });
     // get return url from route parameters or default to '/'

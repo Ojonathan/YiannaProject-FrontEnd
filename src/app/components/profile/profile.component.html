@@ -4,7 +4,7 @@
       <img class="mat-elevation-z3 avatar" [src]="userInfo?.avatar" onerror="this.src='assets/default-user.png'" alt="" />
     </div>
     <div fxFill fxFlex fxLayout="column" class="userdetails">
-      <div class="userName" fxFlex="45%" fxLayout="row "fxLayoutAlign="start end">
+      <div class="userName" fxFlex="45%" fxLayout="row " fxLayout.xs="column" fxLayoutAlign.xs="end center" fxLayoutAlign="start end">
         <h1 class="userNameLabel">{{userInfo?.username}}</h1>
         <span class="spacer"></span>
         <button *ngIf="activated" mat-stroked-button (click)="openEditProfileDialog()">Edit Profile</button>

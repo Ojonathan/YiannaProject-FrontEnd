@@ -10,7 +10,7 @@
       No messages
     </h2>
     <h2 class="messages-label">
-      Select a conversation
+      Select conversation
     </h2>
   </div>
 
@@ -29,7 +29,7 @@
   </div>
 
   <div *ngIf="activated && isLoaded" class="sendMessage" fxLayout="row" fxLayoutAlign="start end">
-    <mat-form-field fxFlex>
+    <mat-form-field fxFlex="70%">
       <mat-label>Write a message</mat-label>
       <textarea matInput
                 cdkTextareaAutosize
@@ -40,10 +40,9 @@
                 required></textarea>
     </mat-form-field>
 
-    <div fxFlex="150px" class="buttonSend">
-      <button mat-raised-button color="primary" (click)="onSendMessage(messageToSend.value)">
-        Send
-      </button>
-    </div>
+
+    <button fxFlex class="buttonSend" mat-raised-button color="primary" (click)="onSendMessage(messageToSend.value)">
+      Send
+    </button>
   </div>
 </div>

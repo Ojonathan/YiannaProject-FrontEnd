@@ -15,10 +15,10 @@ export class EditProfileComponent implements OnInit {
   form!: FormGroup;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: IUser,
-    private _profileService: ProfileService,
-    private fb: FormBuilder,
-    private _authenticationService: AuthenticationService,
-    private dialogRef: MatDialogRef<EditProfileComponent>) { }
+              private _profileService: ProfileService,
+              private fb: FormBuilder,
+              private _authenticationService: AuthenticationService,
+              private dialogRef: MatDialogRef<EditProfileComponent>) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({

@@ -46,10 +46,10 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe(
             data => {
-              if(this._authenticationService.isLoggedIn()){
+              if (this._authenticationService.isLoggedIn()){
                 // start connection
                 this._webSocketClientService.connect();
-                // start verification of notfifications
+                // start verification of notifications
                 this._webSocketClientService.notificationReceived.next(true);
                 // is logged
                 this._authenticationService.isLogged.next(true);

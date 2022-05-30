@@ -14,13 +14,13 @@ import { RespondEventComponent } from '../respond-event/respond-event.component'
 })
 export class EventsListComponent implements OnInit {
 
-  data :IEvent[] = [];
+  data: IEvent[] = [];
 
   constructor(private _eventService: EventService,
-    private _authService: AuthenticationService,
-    private _router : ActivatedRoute,
-    private _routerLink: Router,
-    private dialog: MatDialog) { }
+              private _authService: AuthenticationService,
+              private _router: ActivatedRoute,
+              private _routerLink: Router,
+              private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.initEventAddedSubscription();
@@ -29,19 +29,19 @@ export class EventsListComponent implements OnInit {
   public initEventAddedSubscription() {
     this._eventService.eventAdded.subscribe(
       (v: boolean) => {
-      if(v) {
+      if (v) {
         this._router.paramMap.subscribe(
           res => {
-            if(res.has('idEvent')){
+            if (res.has('idEvent')){
               const localid = res.get('idEvent');
-              if(typeof localid === 'string'){
+              if (typeof localid === 'string'){
                 this._eventService.getEventsForAEvenType(localid).subscribe(
                 resp => {
                   this.data = resp;
-                  for(let event of this.data){
+                  for (const event of this.data){
                     this._eventService.getEventAuthor(event.idEvent).subscribe(
-                      res => event.author = res
-                    )
+                      author => event.author = author
+                    );
                   }
                 }
               );
@@ -50,10 +50,10 @@ export class EventsListComponent implements OnInit {
               this._eventService.getAllEvents().subscribe(
                 resp => {
                   this.data = resp;
-                  for(let event of this.data){
+                  for (const event of this.data){
                     this._eventService.getEventAuthor(event.idEvent).subscribe(
-                      res => event.author = res
-                    )
+                      author => event.author = author
+                    );
                   }
                 });
             }
@@ -76,13 +76,13 @@ export class EventsListComponent implements OnInit {
       });
     }
 
-    openRespondEventDialog(idEvent: number, author:string) {
+    openRespondEventDialog(idEvent: number, myAuthor: string) {
       const dialogConfig = new MatDialogConfig();
 
       dialogConfig.autoFocus = true;
       dialogConfig.data = {
-        'event' : idEvent,
-        'author': author
+        event : idEvent,
+        author : myAuthor
       };
 
       this.dialog.open(RespondEventComponent, dialogConfig);
@@ -96,9 +96,9 @@ export class EventsListComponent implements OnInit {
       return this._authService.getCurrentUsername() === me;
     }
 
-    navigateToUser(username : string){
-      console.log("imagen clickeada !!!")
-      this._routerLink.navigate(['/profile',username]);
+    navigateToUser(username: string){
+      console.log("imagen clickeada !!!");
+      this._routerLink.navigate(['/profile', username]);
     }
 }
 

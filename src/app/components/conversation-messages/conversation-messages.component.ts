@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { WebSocketClientService } from 'src/app/services/web-socket-client.servi
   templateUrl: './conversation-messages.component.html',
   styleUrls: ['./conversation-messages.component.scss']
 })
-export class ConversationMessagesComponent implements OnInit, OnDestroy {
+export class ConversationMessagesComponent implements OnInit, OnDestroy, AfterViewInit{
 
   messages: IMessage[] = [];
   x: number[] = [];
@@ -27,25 +27,25 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
   isLoaded: boolean = false;
 
   constructor(private _chatService: ChatService,
-    private _webSocketClientService: WebSocketClientService,
-    private _authService: AuthenticationService,
-    private _router: ActivatedRoute) { }
+              private _webSocketClientService: WebSocketClientService,
+              private _authService: AuthenticationService,
+              private _router: ActivatedRoute) { }
 
   ngOnInit(): void {
 
-    for (var i=1;i<=50;i++) {
+    for (let i = 1; i <= 50; i++) {
       this.x.push(i);
     }
 
     this.sub = this._router.paramMap
       .pipe(
         filter((params: Params) => {
-          this.activated=false;
+          this.activated = false;
           return params.has('idConversation');
         }),
         switchMap((params: Params) => {
           this.isLoaded = false;
-          this.activated=true;
+          this.activated = true;
           this.reset = false;
           this.setMessageFields(params.get('idConversation'));
           // get chat messages using idConversation, and recipientName (used to mark messages as DELIVERED)
@@ -55,24 +55,24 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
                 resp => {
                   this._webSocketClientService.notificationReceived.next(true);
                   this.messages = resp;
-                  for(let item of this.messages){
+                  for (const item of this.messages){
                     this._chatService.getUserAvatar(item.senderName).subscribe(
                       res => item.avatarSender = res
                     );
                   }
 
                   this.isLoaded = true;
-                  var container = document.getElementById("messages");
-                  if(container){
+                  const container = document.getElementById("messages");
+                  if (container){
                     container.scrollTop = container.scrollHeight;
                   }
 
                   return this._webSocketClientService.notificationMessage
                     .pipe(
                       filter(
-                        notif => {
-                          if (notif.idConversation == this.currentIdConversation){
-                            if(this.reset){
+                        notify => {
+                          if (notify.idConversation === this.currentIdConversation){
+                            if (this.reset){
                               return true;
                             }
                           }
@@ -81,9 +81,9 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
                         }
                       ),
                       switchMap(
-                        notif => {
-                          console.log("" + notif.idConversation + " --- " + this.currentIdConversation);
-                          return this._chatService.findChatMessage(notif.idChatNotif).pipe(
+                        notify => {
+                          console.log("" + notify.idConversation + " --- " + this.currentIdConversation);
+                          return this._chatService.findChatMessage(notify.idChatNotif).pipe(
                             map(
                               message => {
                                 console.log("Before Push");
@@ -108,8 +108,8 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    var container = document.getElementById("messages");
-    if(container){
+    const container = document.getElementById("messages");
+    if (container){
       container.scrollTop = container.scrollHeight;
     }
   }
@@ -122,24 +122,24 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
   setMessageFields(idConversation: string) {
     this.currentIdConversation = idConversation;
 
-    var splitted = idConversation.split("_");
+    const split = idConversation.split("_");
 
     this.currentSenderName = this._authService.getCurrentUsername();
-    this.currentIdEvent = splitted[0];
+    this.currentIdEvent = split[0];
 
-    if (splitted[1] == this.currentSenderName) {
-      this.currentRecipientName = splitted[2];
+    if (split[1] === this.currentSenderName) {
+      this.currentRecipientName = split[2];
     } else {
-      this.currentRecipientName = splitted[1];
+      this.currentRecipientName = split[1];
     }
   }
 
-  onSendMessage(contentMesage: string) {
+  onSendMessage(contentMessage: string) {
 
     const messageToSend: IMessage = {
       senderName: this.currentSenderName,
       recipientName: this.currentRecipientName,
-      content: contentMesage
+      content: contentMessage
     };
 
 

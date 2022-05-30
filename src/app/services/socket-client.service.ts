@@ -42,9 +42,10 @@ export class SocketClientService implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.connect().pipe(first()).subscribe(client => client.disconnect(function() {
+    this.connect().pipe(first()).subscribe(client => client.disconnect(
+      () => {
       //alert("See you next time!");
-    }));
+      }));
   }
 
   //receiving data from backend

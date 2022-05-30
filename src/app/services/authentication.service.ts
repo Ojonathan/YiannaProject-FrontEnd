@@ -21,14 +21,14 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) { }
 
-  login(username: string, password: string) {
+  login(myUsername: string, myPassword: string) {
     const URL: string = environment.url_base + '/login';
-    return this.http.post<any>(URL, { username: username, password: password })
+    return this.http.post<any>(URL, { username: myUsername, password: myPassword })
       .pipe(
         map((res: any) => {
           // login successful if there's a jwt token in the response
           if (res && res.token) {
-            localStorage.setItem('currentUser', JSON.stringify({ username, token: res.token }));
+            localStorage.setItem('currentUser', JSON.stringify({ myUsername, token: res.token }));
           }
         }
       ));
@@ -41,7 +41,7 @@ export class AuthenticationService {
   }
 
   isLoggedIn(): boolean {
-    if(localStorage.getItem('currentUser')){
+    if (localStorage.getItem('currentUser')){
       return true;
     }
     return false;
@@ -57,8 +57,8 @@ export class AuthenticationService {
   }
 
   getCurrentUsername(): string {
-    var currentUser : any = localStorage.getItem('currentUser');
-    if(currentUser){
+    const currentUser: any = localStorage.getItem('currentUser');
+    if (currentUser){
       return JSON.parse(currentUser).username;
     }
     return '';

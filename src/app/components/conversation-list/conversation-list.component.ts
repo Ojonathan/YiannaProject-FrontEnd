@@ -16,8 +16,8 @@ export class ConversationListComponent implements OnInit {
   isLoaded: boolean = false;
 
   constructor(private _chatService: ChatService,
-    private _webSocketClientService: WebSocketClientService,
-    private _authService: AuthenticationService) { }
+              private _webSocketClientService: WebSocketClientService,
+              private _authService: AuthenticationService) { }
 
   ngOnInit(): void {
 
@@ -33,29 +33,29 @@ export class ConversationListComponent implements OnInit {
             return this._chatService.findUserConversations(this._authService.getCurrentUsername())
               .pipe(
                 switchMap(conversations => {
-                  this.isLoaded= false;
+                  this.isLoaded = false;
                   this.conversations = conversations;
 
                   return forkJoin(conversations
                     .map((conversation: IConversation) => {
-                      if (conversation.senderName == this._authService.getCurrentUsername()){
+                      if (conversation.senderName === this._authService.getCurrentUsername()){
                         conversation.contactName = conversation.recipientName;
                       }else{
                         conversation.contactName = conversation.senderName;
                       }
 
-                      var splitted = conversation.idConversation.split("_");
+                      const splitted = conversation.idConversation.split("_");
 
                       const avatarContact = this._chatService.getUserAvatar(conversation.contactName);
                       const eventTitle = this._chatService.getConversationEventTitle(splitted[0]);
 
                       return forkJoin([avatarContact, eventTitle]).pipe(
-                        map(result =>{
+                        map(result => {
                           conversation.avatarContact = result[0];
                           conversation.eventTittle = result[1];
                           this.isLoaded = true;
                         })
-                      )
+                      );
                     })
                   );
                 })

@@ -17,19 +17,19 @@ import { IMessage } from 'src/app/domain/imessage';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-  data: IMessage[]=[];
+  data: IMessage[] = [];
   //public message!: IMessage;
 
   public senderName: string = '';
-  public currentrecipientName: string='user1';
+  public currentrecipientName: string = 'user1';
   public currentEventId!: string | null;
-  //private topicSubscription: Subscription = new Subscription;
+  // private topicSubscription: Subscription = new Subscription;
 
-  //constructor(private rxStompService: RxStompService) {}
+  // constructor(private rxStompService: RxStompService) {}
   constructor(private _webSocketClientService: WebSocketClientService,
-    private _authService: AuthenticationService,
-    private _chatService: ChatService,
-    private _router : ActivatedRoute) {}
+              private _authService: AuthenticationService,
+              private _chatService: ChatService,
+              private _router: ActivatedRoute) {}
 
   ngOnInit(){
     // get all my chat messages
@@ -69,15 +69,15 @@ export class ChatComponent implements OnInit {
       });*/
   }
 
-  onSendMessage(contentMesage:string) {
-    const newmessage = {
+  onSendMessage(contentMessage: string) {
+    const newMessage = {
       senderName: this._authService.getCurrentUsername(),
       recipientName: this.currentrecipientName,
-      content: contentMesage
+      content: contentMessage
     };
 
     //modify eventId
-    this._webSocketClientService.send("7",newmessage);
+    this._webSocketClientService.send("7", newMessage);
   }
 
   /*ngOnInit() {

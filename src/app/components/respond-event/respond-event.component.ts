@@ -16,10 +16,10 @@ export class RespondEventComponent implements OnInit {
   receipterName: string = '';
 
   constructor(private fb: FormBuilder,
-    private _webSocketClientService: WebSocketClientService,
-    private _authService : AuthenticationService,
-    private dialogRef: MatDialogRef<RespondEventComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: any) {
+              private _webSocketClientService: WebSocketClientService,
+              private _authService: AuthenticationService,
+              private dialogRef: MatDialogRef<RespondEventComponent>,
+              @Optional() @Inject(MAT_DIALOG_DATA) public data: any) {
       this.idEvent = data.event;
       this.receipterName = data.author;
   }
@@ -34,8 +34,8 @@ export class RespondEventComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  respondEvent(contentMessage:string) {
-    const newmessage = {
+  respondEvent(contentMessage: string) {
+    const newMessage = {
       senderName: this._authService.getCurrentUsername(),
       recipientName: this.receipterName,
       content: contentMessage
@@ -43,8 +43,8 @@ export class RespondEventComponent implements OnInit {
 
     //check if event exists before sending
 
-    this._webSocketClientService.send(this.idEvent,newmessage);
+    this._webSocketClientService.send(this.idEvent, newMessage);
     // send message to create a conversation
-      this.dialogRef.close();
+    this.dialogRef.close();
   }
 }

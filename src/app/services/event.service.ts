@@ -11,10 +11,10 @@ import { IEvent } from '../domain/ievent';
 export class EventService {
   public eventAdded = new BehaviorSubject<boolean>(true);
 
-  constructor(private _http:HttpClient) {
+  constructor(private _http: HttpClient) {
   }
 
-  public getAllEvents():Observable<IEvent[]>{
+  public getAllEvents(): Observable<IEvent[]>{
     const URL: string = environment.url_base + '/events';
     return this._http.get<IEvent[]>(URL);
   }
@@ -24,12 +24,12 @@ export class EventService {
     return this._http.post(URL, e, {responseType: 'text'});
   }
 
-  public getEventsForAEvenType(idEvenType: string):Observable<IEvent[]>{
+  public getEventsForAEvenType(idEvenType: string): Observable<IEvent[]>{
     const URL: string = environment.url_base + `/event_types/${idEvenType}/events`;
     return this._http.get<IEvent[]>(URL);
   }
 
-  public getEventAuthor(idEvent:number): Observable<IAuthorEvent>{
+  public getEventAuthor(idEvent: number): Observable<IAuthorEvent>{
     const URL: string = environment.url_base + `/events/${idEvent}/author`;
     return this._http.get<IAuthorEvent>(URL);
   }

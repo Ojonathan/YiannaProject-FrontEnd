@@ -11,9 +11,9 @@ import { IEventType } from '../domain/ievent-type';
 export class EventTypeService {
   public eventTypeAdded = new BehaviorSubject<boolean>(true);
 
-  constructor(private _http:HttpClient) { }
+  constructor(private _http: HttpClient) { }
 
-  public getAllEventTypes():Observable<IEventType[]>{
+  public getAllEventTypes(): Observable<IEventType[]>{
     const URL: string = environment.url_base + '/event_types';
     return this._http.get<IEventType[]>(URL);
    }

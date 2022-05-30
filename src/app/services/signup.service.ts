@@ -9,7 +9,7 @@ import { IUser } from '../domain/iuser';
 })
 export class SignupService {
 
-  constructor(private _http:HttpClient) { }
+  constructor(private _http: HttpClient) { }
 
   public addUser(e: IUser): Observable<any> {
     const URL: string = environment.url_base + '/register';

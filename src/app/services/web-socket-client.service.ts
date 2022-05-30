@@ -37,18 +37,18 @@ export class WebSocketClientService {
   }
 
   disconnect() {
-    if(this.subscription){
+    if (this.subscription){
       this.subscription.unsubscribe();
     }
-    if(this.client){
-      this.client.disconnect(function () { });
+    if (this.client){
+      this.client.disconnect( () => { });
     }
   }
 
   //subscribe to my user messages
   onConnected() {
     console.log("connected");
-    var currentUser= localStorage.getItem('currentUser');
+    const currentUser = localStorage.getItem('currentUser');
     if (currentUser) {
       this.subscription = this.client.subscribe(
         "/user/" + JSON.parse(currentUser).username + "/queue/messages",
@@ -63,11 +63,11 @@ export class WebSocketClientService {
         }
       );
     }
-  };
+  }
 
   onError(err: any) {
     console.log(err);
-  };
+  }
 
   saveNotification(n: any) {
     this.notification = n;

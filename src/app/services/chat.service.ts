@@ -9,18 +9,18 @@ import { IConversation } from '../domain/iconversation';
   providedIn: 'root'
 })
 export class ChatService {
-  constructor(private _http:HttpClient) { }
+  constructor(private _http: HttpClient) { }
 
-  findChatMessage(idMessage:number): Observable<IMessage>{
+  findChatMessage(idMessage: number): Observable<IMessage>{
     const URL: string = environment.url_base + '/messages/' + idMessage;
     return this._http.get<IMessage>(URL);
   }
 
-  findChatMessages(idConversation: string, recipientName:string): Observable<IMessage[]>{
-    let Params = new HttpParams();
-    Params = Params.append('recipientName', recipientName);
+  findChatMessages(idConversation: string, recipientName: string): Observable<IMessage[]>{
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append('recipientName', recipientName);
     const URL: string = environment.url_base + '/conversations/' + idConversation + '/messages';
-    return this._http.get<IMessage[]>(URL, {params: Params});
+    return this._http.get<IMessage[]>(URL, {params: httpParams});
   }
 
   /*countNewMessagesByConversation(idConversation: string): Observable<number>{
@@ -33,12 +33,12 @@ export class ChatService {
     return this._http.get<number>(URL);
   }*/
 
-  countNewMessagesTotal(recipientId: string):Observable<number>{
+  countNewMessagesTotal(recipientId: string): Observable<number>{
     const URL: string = environment.url_base + '/messages/user/' + recipientId + '/count';
     return this._http.get<number>(URL);
   }
 
-  findUserConversations(userName:string): Observable<IConversation[]>{
+  findUserConversations(userName: string): Observable<IConversation[]>{
     const URL: string = environment.url_base + '/conversations/user/' + userName;
     return this._http.get<IConversation[]>(URL);
   }

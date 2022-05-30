@@ -8,7 +8,7 @@ export class EventTypeFilterPipe implements PipeTransform {
 
   transform(value: IEventType[], filterBy: string): IEventType[] {
 
-    var filterValue: string = '';
+    let filterValue: string = '';
     if (typeof filterBy === 'string') {
       console.log('es string');
       filterValue = filterBy.toLowerCase();

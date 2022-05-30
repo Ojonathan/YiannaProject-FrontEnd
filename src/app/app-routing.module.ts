@@ -12,12 +12,12 @@ import { SignupComponent } from './components/signup/signup.component';
 const routes: Routes = [
   { path: '', redirectTo: 'events', pathMatch: 'full' },
   { path: 'events', component: EventsComponent,
-  children:[
+  children: [
     {path: '', component: EventsListComponent},
     {path: ':idEvent', component: EventsListComponent}
   ]},
   { path: 'chat', component: ChatComponent,
-  children:[
+  children: [
     {path: '', component: ConversationMessagesComponent},
     {path: 'conversation/:idConversation', component: ConversationMessagesComponent}
   ]},

@@ -12,8 +12,8 @@ export class AddEventTypeComponent implements OnInit {
   form!: FormGroup;
 
   constructor(private fb: FormBuilder,
-    private _eventTypeService: EventTypeService,
-    private dialogRef: MatDialogRef<AddEventTypeComponent>) { }
+              private _eventTypeService: EventTypeService,
+              private dialogRef: MatDialogRef<AddEventTypeComponent>) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({

@@ -11,9 +11,9 @@ import { IUser } from '../domain/iuser';
 export class ProfileService {
   public profileUpdated = new BehaviorSubject<boolean>(true);
 
-  constructor(private _http:HttpClient) { }
+  constructor(private _http: HttpClient) { }
 
-  public getEventsByUser(username: string):Observable<IEvent[]>{
+  public getEventsByUser(username: string): Observable<IEvent[]>{
     const URL: string = environment.url_base + `/events/user/${username}`;
     return this._http.get<IEvent[]>(URL);
   }

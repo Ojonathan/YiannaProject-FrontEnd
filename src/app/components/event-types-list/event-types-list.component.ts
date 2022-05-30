@@ -25,7 +25,7 @@ export class EventTypesListComponent implements OnInit {
   public initEventTypeAddedSubscription() {
     this._eventTypeService.eventTypeAdded.subscribe(
       (v: boolean) => {
-      if(v) {
+      if (v) {
         this._eventTypeService.getAllEventTypes().subscribe(
           resp => this.types = resp,
           error => console.log('something wrong occurred: ' + error)

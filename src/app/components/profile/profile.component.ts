@@ -19,15 +19,15 @@ import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 export class ProfileComponent implements OnInit, OnDestroy {
   myEvents: IEvent[] = [];
   userInfo!: IUser;
-  username: string ='';
+  username: string = '';
   private sub: any;
-  activated : boolean =false;
+  activated: boolean = false;
 
-  constructor(private _profileService : ProfileService,
-    private _eventService: EventService,
-    private _router : ActivatedRoute,
-    private dialog: MatDialog,
-    private _authService: AuthenticationService) { }
+  constructor(private _profileService: ProfileService,
+              private _eventService: EventService,
+              private _router: ActivatedRoute,
+              private dialog: MatDialog,
+              private _authService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.sub = this._router.paramMap
@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         switchMap((params: Params) => {
           this.username = params.get('username');
           console.log(this.username);
-          this.activated = this.username == this._authService.getCurrentUsername();
+          this.activated = this.username === this._authService.getCurrentUsername();
 
           return forkJoin([
             this._profileService.profileUpdated
@@ -91,7 +91,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     dialogConfig.autoFocus = true;
     dialogConfig.data = this.userInfo;
 
-    this.dialog.open(EditProfileComponent,dialogConfig);
+    this.dialog.open(EditProfileComponent, dialogConfig);
   }
 
 }

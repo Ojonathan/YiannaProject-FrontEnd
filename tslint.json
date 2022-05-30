@@ -17,6 +17,10 @@
       "severity": "warning"
     },
     "eofline": true,
+    "comment-format": [
+      false,
+      "check-space"
+    ],
     "import-blacklist": [
       true,
       "rxjs/Rx"
@@ -53,7 +57,7 @@
     ],
     "no-empty": false,
     "no-inferrable-types": [
-      true,
+      false,
       "ignore-params"
     ],
     "no-non-null-assertion": true,
@@ -65,7 +69,7 @@
       "as-needed"
     ],
     "quotemark": [
-      true,
+      false,
       "single"
     ],
     "semicolon": {
@@ -83,7 +87,7 @@
       }
     },
     "typedef": [
-      true,
+      false,
       "call-signature"
     ],
     "typedef-whitespace": {
@@ -108,7 +112,7 @@
       "options": [
         "ban-keywords",
         "check-format",
-        "allow-pascal-case"
+        "allow-leading-underscore"
       ]
     },
     "whitespace": {

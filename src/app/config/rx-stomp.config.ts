@@ -1,6 +1,6 @@
 import { InjectableRxStompConfig } from '@stomp/ng2-stompjs';
 
-export const RxStompConfig: InjectableRxStompConfig = {
+export const rxStompConfig: InjectableRxStompConfig = {
   // Which server?
   brokerURL: 'ws://localhost:8080/ws',
 
@@ -18,7 +18,7 @@ export const RxStompConfig: InjectableRxStompConfig = {
 
   // Wait in milliseconds before attempting auto reconnect
   // Set to 0 to disable
-  // Typical value 500 (500 milli seconds)
+  // Typical value 500 (500 milliseconds)
   //reconnectDelay: 200,
 
   // Will log diagnostics on console

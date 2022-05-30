@@ -12,11 +12,11 @@ export class AppComponent implements OnInit{
 
   title = 'YiannaProject-FrontEnd';
 
-  constructor(private _webSocketService : WebSocketClientService,
-    private _auth : AuthenticationService) { }
+  constructor(private _webSocketService: WebSocketClientService,
+              private _auth: AuthenticationService) { }
 
   ngOnInit(): void {
-    if(this._auth.isLoggedIn()){
+    if (this._auth.isLoggedIn()){
       this._webSocketService.connect();
     }
   }

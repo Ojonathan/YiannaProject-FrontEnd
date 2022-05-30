@@ -20,17 +20,17 @@ export class AddEventComponent implements OnInit {
   filteredOptions!: Observable<IEventType[]>;
 
   constructor(private fb: FormBuilder,
-    private _eventService: EventService,
-    private _eventTypeService: EventTypeService,
-    private _authenticationService: AuthenticationService,
-    private dialogRef: MatDialogRef<AddEventComponent>) {
+              private _eventService: EventService,
+              private _eventTypeService: EventTypeService,
+              private _authenticationService: AuthenticationService,
+              private dialogRef: MatDialogRef<AddEventComponent>) {
   }
 
   ngOnInit(): void {
     this._eventTypeService.getAllEventTypes().subscribe(
       resp => {
         this.types = resp;
-        this.filteredOptions = this.form.controls['type'].valueChanges
+        this.filteredOptions = this.form.controls.type.valueChanges
           .pipe(
             startWith(''),
             map(value => this._filter(value))
@@ -51,7 +51,7 @@ export class AddEventComponent implements OnInit {
 
   private _filter(value: string): IEventType[] {
     console.log(value);
-    var filterValue: string = '';
+    let filterValue = '';
     if (typeof value === 'string') {
       console.log('es string');
       filterValue = value.toLowerCase();

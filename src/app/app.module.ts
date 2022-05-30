@@ -19,7 +19,6 @@ import { LoginComponent } from './components/login/login.component';
 import { AddEventComponent } from './components/add-event/add-event.component';
 import { AddEventTypeComponent } from './components/add-event-type/add-event-type.component';
 import { EventTypeFilterPipe } from './pipes/event-type-filter.pipe';
-import { InjectableRxStompConfig, RxStompService, rxStompServiceFactory } from '@stomp/ng2-stompjs';
 import { RespondEventComponent } from './components/respond-event/respond-event.component';
 import { ConversationListComponent } from './components/conversation-list/conversation-list.component';
 import { ConversationMessagesComponent } from './components/conversation-messages/conversation-messages.component';
@@ -66,15 +65,6 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
       useClass: JwtInterceptor,
       multi: true
     },
-    /*{
-      provide: InjectableRxStompConfig,
-      useValue: RxStompConfig,
-    },
-    {
-      provide: RxStompService,
-      useFactory: rxStompServiceFactory,
-      deps: [InjectableRxStompConfig],
-    },*/
   ],
   bootstrap: [AppComponent],
   entryComponents: [AddEventComponent]

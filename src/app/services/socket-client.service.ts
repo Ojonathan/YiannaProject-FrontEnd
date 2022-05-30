@@ -7,8 +7,6 @@ import { first, filter, switchMap } from 'rxjs/operators';
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 
-//import { Client, over } from 'stompjs';
-
 import { environment } from 'src/environments/environment';
 import { SocketClientState } from '../domain/socket-client-state.enum';
 import { StompSubscription } from '@stomp/stompjs/esm6/stomp-subscription';
